@@ -1,0 +1,34 @@
+2026-07-02 01:52:52,044  INFO  ============================================================
+2026-07-02 01:52:52,044  INFO  STAGE 10 — Cluster Purity Evaluation
+2026-07-02 01:52:52,045  INFO  ============================================================
+2026-07-02 01:52:52,088  INFO  Merged 500 rows  |  clusters: [np.int64(0), np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5), np.int64(6), np.int64(7)]
+2026-07-02 01:52:52,091  INFO  Images with real scene labels: 419 / 500
+2026-07-02 01:52:52,095  INFO    Cluster  0 | size= 47 | dominant=road_scene   | dom_frac=0.419 | purity=0.383
+2026-07-02 01:52:52,100  INFO    Cluster  1 | size= 91 | dominant=road_scene   | dom_frac=0.440 | purity=0.363
+2026-07-02 01:52:52,103  INFO    Cluster  2 | size= 66 | dominant=sky_scene    | dom_frac=0.660 | purity=0.530
+2026-07-02 01:52:52,111  INFO    Cluster  3 | size= 45 | dominant=road_scene   | dom_frac=0.452 | purity=0.422
+2026-07-02 01:52:52,118  INFO    Cluster  4 | size= 74 | dominant=road_scene   | dom_frac=0.448 | purity=0.351
+2026-07-02 01:52:52,121  INFO    Cluster  5 | size= 48 | dominant=road_scene   | dom_frac=0.465 | purity=0.417
+2026-07-02 01:52:52,140  INFO    Cluster  6 | size= 67 | dominant=sky_scene    | dom_frac=0.365 | purity=0.284
+2026-07-02 01:52:52,142  INFO    Cluster  7 | size= 62 | dominant=built_env    | dom_frac=0.491 | purity=0.419
+2026-07-02 01:52:52,150  INFO  cluster_purity.csv saved: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\cluster_purity.csv
+2026-07-02 01:52:52,189  INFO  
+── Headline Purity Metrics ──
+2026-07-02 01:52:52,189  INFO    model                         : openai/clip-vit-base-patch32
+2026-07-02 01:52:52,189  INFO    n_images_total                : 500
+2026-07-02 01:52:52,190  INFO    n_images_labeled              : 419
+2026-07-02 01:52:52,190  INFO    n_clusters                    : 8
+2026-07-02 01:52:52,190  INFO    overall_purity                : 0.4678
+2026-07-02 01:52:52,190  INFO    nmi                           : 0.1014
+2026-07-02 01:52:52,190  INFO    ari                           : 0.0466
+2026-07-02 01:52:52,190  INFO    homogeneity                   : 0.1299
+2026-07-02 01:52:52,191  INFO    completeness                  : 0.0832
+2026-07-02 01:52:52,191  INFO    v_measure                     : 0.1014
+2026-07-02 01:52:52,192  INFO  purity_summary.json saved: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\purity_summary.json
+2026-07-02 01:52:52,192  INFO  Generating confusion heatmap...
+2026-07-02 01:52:53,165  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\cluster_purity_heatmap.png
+2026-07-02 01:52:53,177  INFO  Generating stacked bar chart...
+2026-07-02 01:52:53,985  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\cluster_scene_composition.png
+2026-07-02 01:52:53,985  INFO  ============================================================
+2026-07-02 01:52:53,986  INFO  STAGE 10 COMPLETE  Purity=0.4678  NMI=0.1014  ARI=0.0466
+2026-07-02 01:52:53,986  INFO  ============================================================

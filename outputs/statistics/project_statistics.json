@@ -1,0 +1,23 @@
+{
+    "total_images": 500,
+    "embedding_dimension": 512,
+    "number_of_clusters": 8,
+    "split_train_count": 358,
+    "split_test_count": 81,
+    "split_val_count": 61,
+    "mean_cosine_similarity": 0.711731,
+    "median_cosine_similarity": 0.713789,
+    "min_cosine_similarity": 0.374572,
+    "max_cosine_similarity": 0.949088,
+    "silhouette_score": 0.056439,
+    "davies_bouldin_index": 3.10705,
+    "calinski_harabasz_score": 23.043275,
+    "cluster_0_size": 47.0,
+    "cluster_1_size": 91.0,
+    "cluster_2_size": 66.0,
+    "cluster_3_size": 45.0,
+    "cluster_4_size": 74.0,
+    "cluster_5_size": 48.0,
+    "cluster_6_size": 67.0,
+    "cluster_7_size": 62.0
+}

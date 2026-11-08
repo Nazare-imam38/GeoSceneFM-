@@ -1,0 +1,36 @@
+# ==========================================
+# GeoSceneFM .gitignore
+# ==========================================
+
+# 1. Large Raw Dataset Archives & Candidate Pools (>2.5 GB)
+data/archive.zip
+data/images/train/
+data/images/val/
+data/images/test/
+data/labels/
+data/color_labels/
+
+# 2. Python Bytecode, Caches & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+venv/
+.venv/
+env/
+ENV/
+
+# 3. IDE, Editor & OS Artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# 4. Temporary / Intermediate Execution Logs
+outputs/logs/02_failed_images.log
+*.tmp

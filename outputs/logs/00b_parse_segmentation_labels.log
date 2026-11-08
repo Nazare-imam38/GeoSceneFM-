@@ -1,0 +1,114 @@
+2026-07-02 01:12:00,526  INFO  ============================================================
+2026-07-02 01:12:00,528  INFO  STAGE 0b — Parse Segmentation Labels
+2026-07-02 01:12:00,528  INFO  ============================================================
+2026-07-02 01:12:00,573  INFO  Loaded 500 rows from metadata.csv
+2026-07-02 01:12:01,088  WARNING    No mask found for img_010 (source: e52c6360-5e40c616.jpg)
+2026-07-02 01:12:01,188  WARNING    No mask found for img_013 (source: df68e45e-5b5d262f.jpg)
+2026-07-02 01:12:01,564  WARNING    No mask found for img_022 (source: ca6f4113-00000000.jpg)
+2026-07-02 01:12:01,663  WARNING    No mask found for img_025 (source: e209593e-4e02901d.jpg)
+2026-07-02 01:12:01,863  WARNING    No mask found for img_030 (source: c7dcbb10-00000000.jpg)
+2026-07-02 01:12:02,155  WARNING    No mask found for img_037 (source: ccf31dca-f07960e0.jpg)
+2026-07-02 01:12:03,178  WARNING    No mask found for img_058 (source: e551f69e-554a7241.jpg)
+2026-07-02 01:12:03,997  WARNING    No mask found for img_070 (source: cecda434-48153d15.jpg)
+2026-07-02 01:12:03,998  WARNING    No mask found for img_071 (source: c2592033-a5016a8e.jpg)
+2026-07-02 01:12:04,081  WARNING    No mask found for img_073 (source: e2e2f2a1-00000000.jpg)
+2026-07-02 01:12:04,386  WARNING    No mask found for img_077 (source: cf6226f9-0c2c1570.jpg)
+2026-07-02 01:12:04,755  WARNING    No mask found for img_082 (source: d28368e0-28bc5edf.jpg)
+2026-07-02 01:12:06,092  WARNING    No mask found for img_095 (source: cf16caa7-2819d557.jpg)
+2026-07-02 01:12:06,093  WARNING    No mask found for img_096 (source: c6a4abc9-e9993415.jpg)
+2026-07-02 01:12:06,941  WARNING    No mask found for img_108 (source: b92a0a39-00000000.jpg)
+2026-07-02 01:12:07,229  WARNING    No mask found for img_113 (source: f30ad06b-64670248.jpg)
+2026-07-02 01:12:08,122  WARNING    No mask found for img_124 (source: da21414c-8aa5fe10.jpg)
+2026-07-02 01:12:08,554  WARNING    No mask found for img_131 (source: cf426ff7-6b289d67.jpg)
+2026-07-02 01:12:09,062  WARNING    No mask found for img_138 (source: e87c494c-00000000.jpg)
+2026-07-02 01:12:09,573  WARNING    No mask found for img_145 (source: e5f9b5ae-b0d317dd.jpg)
+2026-07-02 01:12:10,335  WARNING    No mask found for img_156 (source: eddf4a44-b3ff30a0.jpg)
+2026-07-02 01:12:10,498  WARNING    No mask found for img_159 (source: ec50cd9b-e3acc108.jpg)
+2026-07-02 01:12:10,587  WARNING    No mask found for img_161 (source: f5fce005-00000030.jpg)
+2026-07-02 01:12:10,847  WARNING    No mask found for img_165 (source: f2b7f1db-00000000.jpg)
+2026-07-02 01:12:11,274  WARNING    No mask found for img_171 (source: b1d2fc01-de57a9c3.jpg)
+2026-07-02 01:12:11,358  WARNING    No mask found for img_173 (source: ec4e3d72-02ee29fa.jpg)
+2026-07-02 01:12:11,359  WARNING    No mask found for img_174 (source: f5fce005-00000405.jpg)
+2026-07-02 01:12:11,665  WARNING    No mask found for img_179 (source: df0b615f-00000000.jpg)
+2026-07-02 01:12:12,410  WARNING    No mask found for img_189 (source: fb539294-9856bb9b.jpg)
+2026-07-02 01:12:12,574  WARNING    No mask found for img_192 (source: b4eee282-a715a1ea.jpg)
+2026-07-02 01:12:13,748  WARNING    No mask found for img_196 (source: d6b477cc-bbe3dfe9.jpg)
+2026-07-02 01:12:14,027  WARNING    No mask found for img_199 (source: b168df58-00000000.jpg)
+2026-07-02 01:12:14,028  WARNING    No mask found for img_200 (source: be2a29eb-00000000.jpg)
+2026-07-02 01:12:14,547  WARNING    No mask found for img_208 (source: d48eba41-5f8ae6ea.jpg)
+2026-07-02 01:12:15,063  WARNING    No mask found for img_214 (source: f3773bc7-53d8c370.jpg)
+2026-07-02 01:12:16,262  WARNING    No mask found for img_224 (source: b3e93770-00000000.jpg)
+2026-07-02 01:12:16,376  WARNING    No mask found for img_226 (source: c0dbfc7b-00000000.jpg)
+2026-07-02 01:12:16,591  WARNING    No mask found for img_230 (source: cf8e4eb8-9c84d3d4.jpg)
+2026-07-02 01:12:17,574  WARNING    No mask found for img_245 (source: f1f09186-5e5e6f75.jpg)
+2026-07-02 01:12:17,726  WARNING    No mask found for img_248 (source: d88bf478-0fd79220.jpg)
+2026-07-02 01:12:17,953  WARNING    No mask found for img_252 (source: e8313883-879858b1.jpg)
+2026-07-02 01:12:18,154  WARNING    No mask found for img_256 (source: e8f7a5cc-7da00001.jpg)
+2026-07-02 01:12:18,281  WARNING    No mask found for img_259 (source: e2740641-fe6c22a7.jpg)
+2026-07-02 01:12:18,282  WARNING    No mask found for img_260 (source: ebfa9956-00000000.jpg)
+2026-07-02 01:12:18,288  WARNING    No mask found for img_261 (source: b16a27ef-00000000.jpg)
+2026-07-02 01:12:18,348  WARNING    No mask found for img_263 (source: e72b4337-911cefcb.jpg)
+2026-07-02 01:12:18,955  WARNING    No mask found for img_275 (source: f5fce005-00000435.jpg)
+2026-07-02 01:12:18,956  WARNING    No mask found for img_276 (source: df34b4be-c313d03a.jpg)
+2026-07-02 01:12:19,274  WARNING    No mask found for img_282 (source: e34608dc-00000000.jpg)
+2026-07-02 01:12:19,396  WARNING    No mask found for img_285 (source: ec378b71-509aa631.jpg)
+2026-07-02 01:12:19,396  WARNING    No mask found for img_286 (source: bb58cae9-00000000.jpg)
+2026-07-02 01:12:19,727  WARNING    No mask found for img_292 (source: e504493f-00000000.jpg)
+2026-07-02 01:12:19,797  WARNING    No mask found for img_294 (source: ec57cbea-babc4ab9.jpg)
+2026-07-02 01:12:19,954  WARNING    No mask found for img_297 (source: d83d6712-0fcbcb25.jpg)
+2026-07-02 01:12:20,008  WARNING    No mask found for img_299 (source: f016e21f-f9068885.jpg)
+2026-07-02 01:12:20,629  WARNING    No mask found for img_312 (source: cf6079b6-e43b4506.jpg)
+2026-07-02 01:12:20,825  WARNING    No mask found for img_316 (source: f1c8a943-4059eebf.jpg)
+2026-07-02 01:12:21,339  WARNING    No mask found for img_327 (source: d7df24be-54c78167.jpg)
+2026-07-02 01:12:21,974  WARNING    No mask found for img_339 (source: d6e3020e-ae79566a.jpg)
+2026-07-02 01:12:22,688  WARNING    No mask found for img_353 (source: c74dc435-00000000.jpg)
+2026-07-02 01:12:23,045  WARNING    No mask found for img_361 (source: b3a84a0f-93b63ecb.jpg)
+2026-07-02 01:12:23,663  WARNING    No mask found for img_374 (source: de16e6be-70c3a6f9.jpg)
+2026-07-02 01:12:23,664  WARNING    No mask found for img_375 (source: f48e5666-d04e3e57.jpg)
+2026-07-02 01:12:24,036  WARNING    No mask found for img_383 (source: e9dd9ccd-d8e6afa7.jpg)
+2026-07-02 01:12:24,594  WARNING    No mask found for img_395 (source: f660a38c-392f4d50.jpg)
+2026-07-02 01:12:24,918  WARNING    No mask found for img_402 (source: d8960a48-466c1ee7.jpg)
+2026-07-02 01:12:25,140  WARNING    No mask found for img_407 (source: cce96cee-e92d6e05.jpg)
+2026-07-02 01:12:25,616  WARNING    No mask found for img_417 (source: eec60c4d-05e3570b.jpg)
+2026-07-02 01:12:26,444  WARNING    No mask found for img_433 (source: b666b95d-ec6681ac.jpg)
+2026-07-02 01:12:26,501  WARNING    No mask found for img_435 (source: dc6936a6-aa21b72c.jpg)
+2026-07-02 01:12:26,760  WARNING    No mask found for img_440 (source: f12e737d-5a629bb6.jpg)
+2026-07-02 01:12:26,981  WARNING    No mask found for img_445 (source: c7d69f1b-6f448654.jpg)
+2026-07-02 01:12:27,637  WARNING    No mask found for img_451 (source: e2585a75-ace1fbf6.jpg)
+2026-07-02 01:12:28,022  WARNING    No mask found for img_458 (source: d4352b0e-56a3b6f3.jpg)
+2026-07-02 01:12:28,023  WARNING    No mask found for img_459 (source: ac56c836-bdabca21.jpg)
+2026-07-02 01:12:28,222  WARNING    No mask found for img_463 (source: d2336437-00000000.jpg)
+2026-07-02 01:12:28,453  WARNING    No mask found for img_467 (source: eca590d0-00000000.jpg)
+2026-07-02 01:12:29,239  WARNING    No mask found for img_481 (source: eeb6cfbf-11fd84f8.jpg)
+2026-07-02 01:12:29,461  WARNING    No mask found for img_485 (source: bd84f287-00000000.jpg)
+2026-07-02 01:12:29,461  WARNING    No mask found for img_486 (source: f43e1789-c8310000.jpg)
+2026-07-02 01:12:29,929  WARNING    No mask found for img_493 (source: f5fce005-00000350.jpg)
+2026-07-02 01:12:30,330  INFO  label_composition.csv saved: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\label_composition.csv
+2026-07-02 01:12:30,356  INFO  metadata.csv updated with scene labels: C:\Projects\GeoScence\GeoSceneFM\data\metadata.csv
+2026-07-02 01:12:30,356  INFO  
+Images with masks found  : 419
+2026-07-02 01:12:30,357  INFO  Images without masks     : 81
+2026-07-02 01:12:30,357  INFO  
+Dominant category distribution:
+2026-07-02 01:12:30,361  INFO    road                : 144
+2026-07-02 01:12:30,361  INFO    sky                 : 98
+2026-07-02 01:12:30,362  INFO    unknown             : 81
+2026-07-02 01:12:30,362  INFO    building            : 78
+2026-07-02 01:12:30,362  INFO    vegetation          : 67
+2026-07-02 01:12:30,362  INFO    car                 : 21
+2026-07-02 01:12:30,363  INFO    truck               : 3
+2026-07-02 01:12:30,363  INFO    fence               : 2
+2026-07-02 01:12:30,363  INFO    sidewalk            : 2
+2026-07-02 01:12:30,363  INFO    terrain             : 2
+2026-07-02 01:12:30,363  INFO    bus                 : 1
+2026-07-02 01:12:30,364  INFO    pole                : 1
+2026-07-02 01:12:30,364  INFO  
+Scene group distribution:
+2026-07-02 01:12:30,366  INFO    road_scene          : 171
+2026-07-02 01:12:30,366  INFO    sky_scene           : 98
+2026-07-02 01:12:30,371  INFO    built_env           : 81
+2026-07-02 01:12:30,371  INFO    unknown             : 81
+2026-07-02 01:12:30,371  INFO    green_space         : 69
+2026-07-02 01:12:30,372  INFO  ============================================================
+2026-07-02 01:12:30,372  INFO  STAGE 0b COMPLETE
+2026-07-02 01:12:30,372  INFO  ============================================================

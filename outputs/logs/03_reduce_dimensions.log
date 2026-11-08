@@ -1,0 +1,18 @@
+2026-07-02 01:26:40,864  INFO  ============================================================
+2026-07-02 01:26:40,864  INFO  STAGE 3 - Dimensionality Reduction
+2026-07-02 01:26:40,865  INFO  ============================================================
+2026-07-02 01:26:41,034  INFO  Loaded 500 embeddings of dimension 512
+2026-07-02 01:26:41,034  INFO  Running PCA (n_components=2)...
+2026-07-02 01:26:41,077  INFO  PCA explained variance: PC1=0.120, PC2=0.081, total=0.201
+2026-07-02 01:26:41,077  INFO  Running UMAP (n_components=2)...
+2026-07-02 01:26:56,589  INFO  UMAP complete.
+2026-07-02 01:26:56,589  INFO  Running t-SNE (perplexity=30)...
+2026-07-02 01:27:01,540  INFO  t-SNE complete.
+2026-07-02 01:27:01,553  INFO  reduced_embeddings.csv saved: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\reduced_embeddings.csv
+2026-07-02 01:27:01,557  INFO  Validation PASSED: reduced_embeddings.csv is complete and NaN-free.
+2026-07-02 01:27:02,611  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\pca_projection.png
+2026-07-02 01:27:03,370  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\umap_projection.png
+2026-07-02 01:27:03,930  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\tsne_projection.png
+2026-07-02 01:27:03,930  INFO  ============================================================
+2026-07-02 01:27:03,930  INFO  STAGE 3 COMPLETE
+2026-07-02 01:27:03,930  INFO  ============================================================

@@ -1,0 +1,20 @@
+2026-07-02 01:11:20,963  INFO  ============================================================
+2026-07-02 01:11:20,963  INFO  STAGE 0 - Dataset Validation
+2026-07-02 01:11:20,964  INFO  ============================================================
+2026-07-02 01:11:20,973  INFO  Total image files found: 500
+2026-07-02 01:11:28,121  INFO  Valid images         : 500
+2026-07-02 01:11:28,122  INFO  Corrupted / non-RGB  : 0
+2026-07-02 01:11:28,122  INFO  Resolution range     : 1280x720 – 1280x720
+2026-07-02 01:11:28,123  INFO  Average resolution   : 1280x720
+2026-07-02 01:11:28,123  INFO  Running SHA-256 duplicate check...
+2026-07-02 01:11:28,578  INFO  Duplicates found     : 0
+2026-07-02 01:11:28,578  INFO  Unique valid images  : 500
+2026-07-02 01:11:28,579  INFO  ============================================================
+2026-07-02 01:11:28,579  INFO  VALIDATION SUMMARY
+2026-07-02 01:11:28,579  INFO    Total scanned    : 500
+2026-07-02 01:11:28,580  INFO    Corrupted removed: 0
+2026-07-02 01:11:28,580  INFO    Duplicates removed:0
+2026-07-02 01:11:28,580  INFO    Valid unique     : 500
+2026-07-02 01:11:28,580  INFO    Required minimum : 500
+2026-07-02 01:11:28,581  INFO    STATUS: PASSED
+2026-07-02 01:11:28,581  INFO  ============================================================

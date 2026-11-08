@@ -1,0 +1,23 @@
+2026-07-02 01:11:04,135  INFO  ============================================================
+2026-07-02 01:11:04,135  INFO  STAGE 1 — Dataset Preparation
+2026-07-02 01:11:04,136  INFO  ============================================================
+2026-07-02 01:11:04,238  INFO    C:\Projects\GeoScence\GeoSceneFM\data\images\train: 7000 images
+2026-07-02 01:11:04,255  INFO    C:\Projects\GeoScence\GeoSceneFM\data\images\val: 1000 images
+2026-07-02 01:11:04,277  INFO    C:\Projects\GeoScence\GeoSceneFM\data\images\test: 2000 images
+2026-07-02 01:11:04,278  INFO  Total candidate images: 10000
+2026-07-02 01:11:04,289  INFO  Validating up to 1500 candidates to find 500 valid unique images...
+2026-07-02 01:11:05,878  INFO  Corrupted / non-RGB skipped: 0
+2026-07-02 01:11:05,878  INFO  Valid candidates found      : 1500
+2026-07-02 01:11:05,878  INFO  Deduplicating candidates via SHA-256...
+2026-07-02 01:11:06,935  INFO  Duplicates removed     : 0
+2026-07-02 01:11:06,935  INFO  Unique valid candidates: 1500
+2026-07-02 01:11:06,935  INFO  Sampled 500 images.
+2026-07-02 01:11:06,965  INFO  Cleared 60 old files from C:\Projects\GeoScence\GeoSceneFM\data\images\prepared
+2026-07-02 01:11:08,641  INFO  metadata.csv written: C:\Projects\GeoScence\GeoSceneFM\data\metadata.csv
+2026-07-02 01:11:08,642  INFO  Dataset composition by source split:
+2026-07-02 01:11:08,643  INFO    train: 358 images
+2026-07-02 01:11:08,643  INFO    val: 61 images
+2026-07-02 01:11:08,644  INFO    test: 81 images
+2026-07-02 01:11:08,644  INFO  ============================================================
+2026-07-02 01:11:08,645  INFO  STAGE 1 COMPLETE — 500 images in C:\Projects\GeoScence\GeoSceneFM\data\images\prepared
+2026-07-02 01:11:08,645  INFO  ============================================================

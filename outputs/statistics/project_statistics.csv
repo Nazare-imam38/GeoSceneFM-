@@ -1,0 +1,2 @@
+total_images,embedding_dimension,number_of_clusters,split_train_count,split_test_count,split_val_count,mean_cosine_similarity,median_cosine_similarity,min_cosine_similarity,max_cosine_similarity,silhouette_score,davies_bouldin_index,calinski_harabasz_score,cluster_0_size,cluster_1_size,cluster_2_size,cluster_3_size,cluster_4_size,cluster_5_size,cluster_6_size,cluster_7_size
+500,512,8,358,81,61,0.711731,0.713789,0.374572,0.949088,0.056439,3.10705,23.043275,47.0,91.0,66.0,45.0,74.0,48.0,67.0,62.0

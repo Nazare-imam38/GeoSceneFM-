@@ -1,0 +1,9 @@
+{
+    "model_name": "openai/clip-vit-base-patch32",
+    "scene_embedding_dimension": 512,
+    "number_of_images": 500,
+    "failed_images": 0,
+    "date_created": "2026-07-02T01:18:22.905139",
+    "random_seed": 42,
+    "device": "cpu"
+}

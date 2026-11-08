@@ -1,0 +1,9 @@
+Cluster,Dominant Split,Images,Mean Intra-Sim
+0,road_scene,47,0.7736
+1,road_scene,91,0.7621
+2,sky_scene,66,0.7717
+3,road_scene,45,0.8079
+4,road_scene,74,0.8117
+5,road_scene,48,0.7685
+6,sky_scene,67,0.7479
+7,built_env,62,0.8041

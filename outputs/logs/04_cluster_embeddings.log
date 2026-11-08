@@ -1,0 +1,28 @@
+2026-07-02 01:27:18,080  INFO  ============================================================
+2026-07-02 01:27:18,080  INFO  STAGE 4 - KMeans Clustering
+2026-07-02 01:27:18,080  INFO  ============================================================
+2026-07-02 01:27:18,219  INFO  Embedding matrix: (500, 512)
+2026-07-02 01:27:18,219  INFO  Running KMeans (n_clusters=8, n_init=auto)...
+2026-07-02 01:27:19,797  INFO  Silhouette Score     : 0.0564  (higher = better, max 1.0)
+2026-07-02 01:27:19,797  INFO  Davies-Bouldin Index : 3.1070  (lower  = better, min 0.0)
+2026-07-02 01:27:19,798  INFO  Calinski-Harabasz    : 23.0433  (higher = better)
+2026-07-02 01:27:19,803  INFO  Cluster sizes:
+2026-07-02 01:27:19,803  INFO    Cluster 0: 47 images
+2026-07-02 01:27:19,804  INFO    Cluster 1: 91 images
+2026-07-02 01:27:19,804  INFO    Cluster 2: 66 images
+2026-07-02 01:27:19,804  INFO    Cluster 3: 45 images
+2026-07-02 01:27:19,804  INFO    Cluster 4: 74 images
+2026-07-02 01:27:19,805  INFO    Cluster 5: 48 images
+2026-07-02 01:27:19,805  INFO    Cluster 6: 67 images
+2026-07-02 01:27:19,805  INFO    Cluster 7: 62 images
+2026-07-02 01:27:19,811  INFO  cluster_assignments.csv saved: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\cluster_assignments.csv
+2026-07-02 01:27:19,820  INFO  reduced_embeddings.csv updated with cluster_id: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\reduced_embeddings.csv
+2026-07-02 01:27:19,824  INFO  clustering_metrics.csv saved.
+2026-07-02 01:27:20,538  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\pca_clusters.png
+2026-07-02 01:27:21,251  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\umap_clusters.png
+2026-07-02 01:27:21,372  INFO  Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-07-02 01:27:21,379  INFO  Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-07-02 01:27:21,640  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\cluster_size_bar.png
+2026-07-02 01:27:21,640  INFO  ============================================================
+2026-07-02 01:27:21,641  INFO  STAGE 4 COMPLETE  Sil=0.056  DB=3.107  CH=23.0
+2026-07-02 01:27:21,641  INFO  ============================================================

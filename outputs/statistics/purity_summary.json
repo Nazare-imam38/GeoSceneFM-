@@ -1,0 +1,12 @@
+{
+    "model": "openai/clip-vit-base-patch32",
+    "n_images_total": 500,
+    "n_images_labeled": 419,
+    "n_clusters": 8,
+    "overall_purity": 0.4678,
+    "nmi": 0.1014,
+    "ari": 0.0466,
+    "homogeneity": 0.1299,
+    "completeness": 0.0832,
+    "v_measure": 0.1014
+}

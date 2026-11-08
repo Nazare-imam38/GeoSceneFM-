@@ -1,0 +1,37 @@
+2026-07-02 01:28:30,685  INFO  ============================================================
+2026-07-02 01:28:30,685  INFO  STAGE 9 - Advanced Embedding Analysis
+2026-07-02 01:28:30,685  INFO  ============================================================
+2026-07-02 01:28:30,868  INFO  Building 500x500 cosine similarity matrix...
+2026-07-02 01:28:30,936  INFO  Computing cluster summary...
+2026-07-02 01:28:30,962  INFO    Cluster 0: 47 images, dominant=road_scene, mean_sim=0.7736
+2026-07-02 01:28:30,964  INFO    Cluster 1: 91 images, dominant=road_scene, mean_sim=0.7621
+2026-07-02 01:28:30,965  INFO    Cluster 2: 66 images, dominant=sky_scene, mean_sim=0.7717
+2026-07-02 01:28:30,967  INFO    Cluster 3: 45 images, dominant=road_scene, mean_sim=0.8079
+2026-07-02 01:28:30,969  INFO    Cluster 4: 74 images, dominant=road_scene, mean_sim=0.8117
+2026-07-02 01:28:30,970  INFO    Cluster 5: 48 images, dominant=road_scene, mean_sim=0.7685
+2026-07-02 01:28:30,972  INFO    Cluster 6: 67 images, dominant=sky_scene, mean_sim=0.7479
+2026-07-02 01:28:30,974  INFO    Cluster 7: 62 images, dominant=built_env, mean_sim=0.8041
+2026-07-02 01:28:30,979  INFO  cluster_summary.csv saved.
+2026-07-02 01:28:30,979  INFO  Generating cluster representative image panels...
+2026-07-02 01:28:32,155  INFO    Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\cluster_examples\cluster_0.png
+2026-07-02 01:28:33,288  INFO    Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\cluster_examples\cluster_1.png
+2026-07-02 01:28:34,512  INFO    Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\cluster_examples\cluster_2.png
+2026-07-02 01:28:35,754  INFO    Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\cluster_examples\cluster_3.png
+2026-07-02 01:28:36,853  INFO    Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\cluster_examples\cluster_4.png
+2026-07-02 01:28:38,047  INFO    Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\cluster_examples\cluster_5.png
+2026-07-02 01:28:39,148  INFO    Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\cluster_examples\cluster_6.png
+2026-07-02 01:28:40,366  INFO    Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\cluster_examples\cluster_7.png
+2026-07-02 01:28:40,366  INFO  Computing embedding statistics...
+2026-07-02 01:28:40,377  INFO    mean_embedding_norm: 1.0
+2026-07-02 01:28:40,378  INFO    std_embedding_norm: 0.0
+2026-07-02 01:28:40,378  INFO    mean_feature_variance: 0.0005619
+2026-07-02 01:28:40,378  INFO    mean_cosine_similarity: 0.711731
+2026-07-02 01:28:40,379  INFO    scene_group_entropy: 1.549397
+2026-07-02 01:28:40,379  INFO    total_images: 500
+2026-07-02 01:28:40,379  INFO  embedding_statistics.csv saved.
+2026-07-02 01:28:40,379  INFO  Building similarity network graph (threshold=0.85)...
+2026-07-02 01:28:43,097  INFO  Network: 500 nodes, 3147 edges (sim > 0.85)
+2026-07-02 01:28:45,559  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\embedding_similarity_network.png
+2026-07-02 01:28:45,559  INFO  ============================================================
+2026-07-02 01:28:45,559  INFO  STAGE 9 COMPLETE
+2026-07-02 01:28:45,560  INFO  ============================================================

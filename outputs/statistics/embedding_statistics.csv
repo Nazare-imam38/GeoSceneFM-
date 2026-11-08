@@ -1,0 +1,2 @@
+mean_embedding_norm,std_embedding_norm,mean_feature_variance,mean_cosine_similarity,scene_group_entropy,total_images
+1.0,0.0,0.0005619,0.711731,1.549397,500

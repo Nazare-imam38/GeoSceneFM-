@@ -1,0 +1,15 @@
+torch
+torchvision
+transformers
+pillow
+pandas
+numpy
+scikit-learn
+matplotlib
+umap-learn
+tqdm
+folium
+seaborn
+plotly
+networkx
+requests

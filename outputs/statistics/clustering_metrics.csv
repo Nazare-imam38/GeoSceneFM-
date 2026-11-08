@@ -1,0 +1,2 @@
+silhouette_score,davies_bouldin_index,calinski_harabasz_score,cluster_0_size,cluster_1_size,cluster_2_size,cluster_3_size,cluster_4_size,cluster_5_size,cluster_6_size,cluster_7_size
+0.056439,3.10705,23.043275,47,91,66,45,74,48,67,62

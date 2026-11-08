@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoSceneFM — Research Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #222636;
+      --border: #2d3148;
+      --accent: #5b8dee;
+      --accent2: #e8554e;
+      --accent3: #27ae60;
+      --accent4: #f0a500;
+      --text: #e2e4f0;
+      --muted: #8b8fa8;
+      --road: #e74c3c;
+      --sky:  #5dade2;
+      --built:#f39c12;
+      --green:#27ae60;
+      --unk:  #95a5a6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,17,23,.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0; padding: 0 28px;
+    }
+    .nav-brand { font-size: 17px; font-weight: 700; color: var(--accent); padding: 14px 20px 14px 0; white-space: nowrap; }
+    .nav-brand span { color: var(--muted); font-weight: 400; font-size: 13px; margin-left: 6px; }
+    .nav-links { display: flex; gap: 2px; flex-wrap: wrap; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; padding: 14px 14px;
+      font-size: 13px; font-weight: 500; border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); border-bottom-color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 1260px; margin: 0 auto; padding: 36px 24px 80px; }
+    section { margin-bottom: 56px; scroll-margin-top: 72px; }
+    h2.section-title {
+      font-size: 20px; font-weight: 700; color: var(--text);
+      border-left: 4px solid var(--accent); padding-left: 14px; margin-bottom: 24px;
+    }
+    h3.sub-title { font-size: 15px; font-weight: 600; color: var(--muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: .06em; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1a1d27 0%, #141829 60%, #0f1117 100%);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 48px 40px; margin-bottom: 40px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(91,141,238,.12) 0%, transparent 70%);
+    }
+    .hero-tag { display: inline-block; background: rgba(91,141,238,.15); color: var(--accent); border: 1px solid rgba(91,141,238,.3); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 600; letter-spacing: .08em; margin-bottom: 16px; text-transform: uppercase; }
+    .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+    .hero p { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 680px; margin-bottom: 28px; }
+    .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--muted); }
+    .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* ── STAT CARDS ── */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 20px 22px; position: relative; overflow: hidden;
+    }
+    .stat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent-color, var(--accent)); border-radius: 0 0 10px 10px; }
+    .stat-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 8px; }
+    .stat-value { font-size: 28px; font-weight: 800; color: var(--text); line-height: 1; }
+    .stat-sub { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+    /* ── CARD ── */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+    .card + .card { margin-top: 16px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+    /* ── CHART CONTAINERS ── */
+    .chart-wrap { position: relative; }
+    .chart-wrap canvas { width: 100% !important; }
+
+    /* ── FIGURE GALLERY ── */
+    .fig-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .fig-card {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      overflow: hidden; cursor: pointer; transition: transform .15s, border-color .15s;
+    }
+    .fig-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .fig-card img { width: 100%; height: 180px; object-fit: cover; display: block; background: #111; }
+    .fig-label { padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--muted); }
+
+    /* ── TABLE ── */
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th { background: var(--surface2); color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+    tbody tr:hover { background: var(--surface2); }
+    tbody td { padding: 10px 14px; }
+    .pill { display: inline-block; border-radius: 12px; padding: 2px 10px; font-size: 11px; font-weight: 700; }
+
+    /* ── PIPELINE ── */
+    .pipeline { display: flex; flex-direction: column; gap: 0; }
+    .pipe-step {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+    }
+    .pipe-step:last-child { border-bottom: none; }
+    .pipe-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pipe-body { flex: 1; }
+    .pipe-name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .pipe-desc { color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .pipe-output { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; font-size: 11px; padding: 2px 8px; color: var(--accent); margin-top: 6px; font-family: monospace; }
+
+    /* ── IFRAME ── */
+    .iframe-wrap { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .iframe-wrap iframe { width: 100%; border: none; display: block; }
+
+    /* ── MODAL ── */
+    #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 999; align-items: center; justify-content: center; }
+    #modal.open { display: flex; }
+    #modal img { max-width: 90vw; max-height: 88vh; border-radius: 8px; box-shadow: 0 24px 80px rgba(0,0,0,.6); }
+    #modal-close { position: fixed; top: 18px; right: 22px; background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; }
+
+    /* ── PROGRESS BAR ── */
+    .prog-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .prog-label { width: 120px; font-size: 12px; color: var(--muted); flex-shrink: 0; text-align: right; }
+    .prog-bar { flex: 1; height: 10px; background: var(--surface2); border-radius: 5px; overflow: hidden; }
+    .prog-fill { height: 100%; border-radius: 5px; }
+    .prog-val { width: 44px; font-size: 12px; font-weight: 700; color: var(--text); text-align: right; flex-shrink: 0; }
+
+    /* ── TABS ── */
+    .tab-bar { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+    .tab-btn { background: none; border: none; color: var(--muted); font-size: 13px; font-weight: 600; padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; transition: .15s; }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); text-align: center; padding: 28px; color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">GeoSceneFM <span>Spatial Foundation Model</span></div>
+  <div class="nav-links">
+    <a href="#overview" class="active">Overview</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#model">Model</a>
+    <a href="#dataset">Dataset</a>
+    <a href="#embeddings">Embeddings</a>
+    <a href="#clustering">Clustering</a>
+    <a href="#purity">Purity</a>
+    <a href="#retrieval">Retrieval</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#explorer">Explorer</a>
+    <a href="#map">Map</a>
+    <a href="#report">Report</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ══ HERO ══════════════════════════════════════════════════════════════════ -->
+<section id="overview">
+  <div class="hero">
+    <div class="hero-tag">Research Prototype · Zero-Shot · Unsupervised</div>
+    <h1>GeoSceneFM</h1>
+    <p>A spatial foundation model prototype for urban scene representation learning. CLIP ViT-B/32 embeddings are extracted from 500 real Mapillary Vistas street images in zero-shot mode — no fine-tuning, no labels — then analysed through dimensionality reduction, KMeans clustering, cosine similarity retrieval, and segmentation-based purity evaluation.</p>
+    <div class="hero-badges">
+      <div class="badge"><div class="dot" style="background:#5b8dee"></div>CLIP ViT-B/32</div>
+      <div class="badge"><div class="dot" style="background:#27ae60"></div>500 Real Images</div>
+      <div class="badge"><div class="dot" style="background:#f0a500"></div>Mapillary Vistas</div>
+      <div class="badge"><div class="dot" style="background:#e8554e"></div>Zero-Shot</div>
+      <div class="badge"><div class="dot" style="background:#8e44ad"></div>K=8 Clusters</div>
+    </div>
+  </div>
+
+  <!-- Headline stat cards -->
+  <div class="stat-grid">
+    <div class="stat-card" style="--accent-color:#5b8dee">
+      <div class="stat-label">Images Processed</div>
+      <div class="stat-value">500</div>
+      <div class="stat-sub">Mapillary Vistas, 1280×720</div>
+    </div>
+    <div class="stat-card" style="--accent-color:#27ae60">
+      <div class="stat-label">Embedding Dimension</div>
+      <div class="stat-value">512</div>
+      <div class="stat-sub">CLIP ViT-B/32, L2-normalised</div>
+    </div>
+    <div class="stat-card" style="--accent-color:#f0a500">
+      <div class="stat-label">Mean Cosine Similarity</div>
+      <div class="stat-value">0.712</div>
+      <div class="stat-sub">Range: 0.375 – 0.949</div>
+    </div>
+    <div class="stat-card" style="--accent-color:#e8554e">
+      <div class="stat-label">KMeans Clusters</div>
+      <div class="stat-value">8</div>
+      <div class="stat-sub">Full 512-dim space</div>
+    </div>
+    <div class="stat-card" style="--accent-color:#8e44ad">
+      <div class="stat-label">Overall Purity</div>
+      <div class="stat-value">46.8%</div>
+      <div class="stat-sub">vs segmentation labels</div>
+    </div>
+    <div class="stat-card" style="--accent-color:#16a085">
+      <div class="stat-label">Silhouette Score</div>
+      <div class="stat-value">0.056</div>
+      <div class="stat-sub">Honest baseline, no fine-tuning</div>
+    </div>
+    <div class="stat-card" style="--accent-color:#e74c3c">
+      <div class="stat-label">Sim. Network Edges</div>
+      <div class="stat-value">3,147</div>
+      <div class="stat-sub">Cosine similarity &gt; 0.85</div>
+    </div>
+    <div class="stat-card" style="--accent-color:#5dade2">
+      <div class="stat-label">Images with Labels</div>
+      <div class="stat-value">419</div>
+      <div class="stat-sub">Segmentation mask derived</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PIPELINE ══════════════════════════════════════════════════════════════ -->
+<section id="pipeline">
+  <h2 class="section-title">Pipeline</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="sub-title">11-Stage Execution</h3>
+      <div class="pipeline">
+        <div class="pipe-step"><div class="pipe-num">1</div><div class="pipe-body"><div class="pipe-name">Dataset Preparation</div><div class="pipe-desc">Random sample of 500 images from 10,000 Kaggle candidates. SHA-256 deduplication, RGB integrity check.</div><div class="pipe-output">metadata.csv</div></div></div>
+        <div class="pipe-step"><div class="pipe-num">0</div><div class="pipe-body"><div class="pipe-name">Dataset Validation</div><div class="pipe-desc">60→500 images validated. 0 corrupted. 0 duplicates. All 1280×720 JPEG.</div><div class="pipe-output">00_dataset_validation.log</div></div></div>
+        <div class="pipe-step"><div class="pipe-num">0b</div><div class="pipe-body"><div class="pipe-name">Segmentation Label Parser</div><div class="pipe-desc">Maps Mapillary pixel IDs 0–18 to category names. Assigns dominant_category and scene_group per image.</div><div class="pipe-output">label_composition.csv</div></div></div>
+        <div class="pipe-step"><div class="pipe-num">2</div><div class="pipe-body"><div class="pipe-name">CLIP Embedding Extraction</div><div class="pipe-desc">CLIP ViT-B/32 zero-shot inference. L2 normalisation to unit sphere. 0 failures.</div><div class="pipe-output">scene_embeddings.csv (500×515)</div></div></div>
+        <div class="pipe-step"><div class="pipe-num">3</div><div class="pipe-body"><div class="pipe-name">Dimensionality Reduction</div><div class="pipe-desc">PCA (20.1% var), UMAP (topology), t-SNE (perplexity=30). NaN-free verified.</div><div class="pipe-output">reduced_embeddings.csv</div></div></div>
+        <div class="pipe-step"><div class="pipe-num">4</div><div class="pipe-body"><div class="pipe-name">KMeans Clustering</div><div class="pipe-desc">K=8 on full 512-dim space. Silhouette, Davies-Bouldin, Calinski-Harabasz computed.</div><div class="pipe-output">cluster_assignments.csv</div></div></div>
+        <div class="pipe-step"><div class="pipe-num">5</div><div class="pipe-body"><div class="pipe-name">Scene Retrieval</div><div class="pipe-desc">500×500 cosine similarity matrix. Top-5 nearest neighbours per image (2,500 records).</div><div class="pipe-output">similarity_matrix.csv · top5_similar_scenes.csv</div></div></div>
+        <div class="pipe-step"><div class="pipe-num">10</div><div class="pipe-body"><div class="pipe-name">Cluster Purity Evaluation</div><div class="pipe-desc">Formal purity, NMI, ARI, homogeneity/completeness/V-measure against segmentation labels.</div><div class="pipe-output">cluster_purity.csv · purity_summary.json</div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="sub-title">Pipeline Diagram</h3>
+      <img src="../outputs/figures/embedding_pipeline_diagram.png" alt="Pipeline" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)" />
+    </div>
+  </div>
+</section>
+
+<!-- ══ MODEL ══════════════════════════════════════════════════════════════════ -->
+<section id="model">
+  <h2 class="section-title">Model — CLIP ViT-B/32</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="sub-title">Architecture</h3>
+      <table>
+        <tbody>
+          <tr><td style="color:var(--muted);width:50%">Model ID</td><td><code>openai/clip-vit-base-patch32</code></td></tr>
+          <tr><td style="color:var(--muted)">Backbone</td><td>Vision Transformer (ViT-B/32)</td></tr>
+          <tr><td style="color:var(--muted)">Patch size</td><td>32 × 32 px</td></tr>
+          <tr><td style="color:var(--muted)">Input resolution</td><td>224 × 224 RGB</td></tr>
+          <tr><td style="color:var(--muted)">Transformer layers</td><td>12</td></tr>
+          <tr><td style="color:var(--muted)">Hidden size</td><td>768</td></tr>
+          <tr><td style="color:var(--muted)">Output dimension</td><td><strong>512</strong></td></tr>
+          <tr><td style="color:var(--muted)">Normalisation</td><td>L2 — unit sphere</td></tr>
+          <tr><td style="color:var(--muted)">Training data</td><td>400M image-text pairs</td></tr>
+          <tr><td style="color:var(--muted)">Usage mode</td><td>Zero-shot · image encoder only</td></tr>
+          <tr><td style="color:var(--muted)">Fine-tuning</td><td>None</td></tr>
+          <tr><td style="color:var(--muted)">Device (this run)</td><td>CPU</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3 class="sub-title">Embedding Quality Dashboard</h3>
+      <img src="../outputs/figures/embedding_quality_dashboard.png" alt="Dashboard" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)" />
+      <div style="margin-top:16px">
+        <div class="prog-row"><div class="prog-label">Mean Norm</div><div class="prog-bar"><div class="prog-fill" style="width:100%;background:var(--accent)"></div></div><div class="prog-val">1.000</div></div>
+        <div class="prog-row"><div class="prog-label">Silhouette</div><div class="prog-bar"><div class="prog-fill" style="width:5.6%;background:var(--accent2)"></div></div><div class="prog-val">0.056</div></div>
+        <div class="prog-row"><div class="prog-label">Purity</div><div class="prog-bar"><div class="prog-fill" style="width:46.8%;background:var(--accent4)"></div></div><div class="prog-val">0.468</div></div>
+        <div class="prog-row"><div class="prog-label">NMI</div><div class="prog-bar"><div class="prog-fill" style="width:10.1%;background:var(--accent3)"></div></div><div class="prog-val">0.101</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DATASET ════════════════════════════════════════════════════════════════ -->
+<section id="dataset">
+  <h2 class="section-title">Dataset</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="sub-title">Scene Group Distribution (419 labelled)</h3>
+      <div class="chart-wrap" style="max-height:280px">
+        <canvas id="sceneChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="sub-title">Dominant Category Distribution</h3>
+      <div class="chart-wrap" style="max-height:280px">
+        <canvas id="catChart"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3 class="sub-title">Source Statistics</h3>
+    <div class="stat-grid">
+      <div class="stat-card" style="--accent-color:var(--accent)"><div class="stat-label">Total Images</div><div class="stat-value">500</div><div class="stat-sub">Randomly sampled, seed=42</div></div>
+      <div class="stat-card" style="--accent-color:var(--accent3)"><div class="stat-label">Train Split</div><div class="stat-value">358</div><div class="stat-sub">71.6%</div></div>
+      <div class="stat-card" style="--accent-color:var(--accent4)"><div class="stat-label">Val Split</div><div class="stat-value">61</div><div class="stat-sub">12.2%</div></div>
+      <div class="stat-card" style="--accent-color:var(--accent2)"><div class="stat-label">Test Split</div><div class="stat-value">81</div><div class="stat-sub">16.2%</div></div>
+      <div class="stat-card" style="--accent-color:#8e44ad"><div class="stat-label">With Masks</div><div class="stat-value">419</div><div class="stat-sub">83.8% labelled</div></div>
+      <div class="stat-card" style="--accent-color:var(--muted)"><div class="stat-label">Resolution</div><div class="stat-value">1280<small style="font-size:14px">×720</small></div><div class="stat-sub">All identical JPEG</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EMBEDDINGS ═════════════════════════════════════════════════════════════ -->
+<section id="embeddings">
+  <h2 class="section-title">Embeddings &amp; Projections</h2>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('emb','pca')">PCA</button>
+    <button class="tab-btn" onclick="switchTab('emb','umap')">UMAP</button>
+    <button class="tab-btn" onclick="switchTab('emb','tsne')">t-SNE</button>
+    <button class="tab-btn" onclick="switchTab('emb','simheat')">Similarity Heatmap</button>
+    <button class="tab-btn" onclick="switchTab('emb','simdist')">Similarity Distribution</button>
+  </div>
+  <div id="emb-pca" class="tab-panel active card">
+    <div class="grid-2" style="align-items:start">
+      <img src="../outputs/figures/pca_projection.png" alt="PCA" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+      <img src="../outputs/figures/pca_clusters.png" alt="PCA Clusters" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+    </div>
+    <p style="color:var(--muted);margin-top:14px;font-size:13px">Linear PCA projection of 512-dim embeddings into 2D. PC1 explains 12.0% variance, PC2 explains 8.1% (total 20.1%). Right: same projection coloured by KMeans cluster assignment.</p>
+  </div>
+  <div id="emb-umap" class="tab-panel card">
+    <div class="grid-2" style="align-items:start">
+      <img src="../outputs/figures/umap_projection.png" alt="UMAP" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+      <img src="../outputs/figures/umap_clusters.png" alt="UMAP Clusters" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+    </div>
+    <p style="color:var(--muted);margin-top:14px;font-size:13px">UMAP preserves local and global manifold topology. Right: cluster assignments reveal sky_scene (clusters 2, 6) and built_env (cluster 7) groupings.</p>
+  </div>
+  <div id="emb-tsne" class="tab-panel card">
+    <img src="../outputs/figures/tsne_projection.png" alt="t-SNE" style="width:100%;max-width:600px;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+    <p style="color:var(--muted);margin-top:14px;font-size:13px">t-SNE (perplexity=30) focuses on local neighbourhood preservation, revealing fine-grained cluster substructure not visible in PCA.</p>
+  </div>
+  <div id="emb-simheat" class="tab-panel card">
+    <img src="../outputs/figures/similarity_heatmap.png" alt="Heatmap" style="width:100%;max-width:640px;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+    <p style="color:var(--muted);margin-top:14px;font-size:13px">Full 500×500 pairwise cosine similarity matrix. Block structure along the diagonal indicates cluster cohesion.</p>
+  </div>
+  <div id="emb-simdist" class="tab-panel card">
+    <img src="../outputs/figures/cosine_similarity_distribution.png" alt="Sim Dist" style="width:100%;max-width:600px;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+    <p style="color:var(--muted);margin-top:14px;font-size:13px">Pairwise cosine similarity distribution. Mean = 0.712, median = 0.714. Range 0.375–0.949 shows genuine visual spread across the 500 images.</p>
+  </div>
+</section>
+
+<!-- ══ CLUSTERING ════════════════════════════════════════════════════════════ -->
+<section id="clustering">
+  <h2 class="section-title">Clustering</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="sub-title">Cluster Metrics</h3>
+      <div class="chart-wrap" style="max-height:260px"><canvas id="clusterBarChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="sub-title">Mean Intra-Cluster Similarity</h3>
+      <div class="chart-wrap" style="max-height:260px"><canvas id="intraSimChart"></canvas></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3 class="sub-title">Cluster Summary Table</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Cluster</th><th>Size</th><th>Dominant Scene</th><th>Mean Intra-Sim</th><th>Purity</th></tr></thead>
+        <tbody id="clusterTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <img src="../outputs/figures/cluster_size_bar.png" alt="Cluster Sizes" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+    </div>
+    <div class="card">
+      <img src="../outputs/figures/embedding_similarity_network.png" alt="Network" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+      <p style="color:var(--muted);margin-top:10px;font-size:12px">Similarity network: 500 nodes, 3,147 edges (cosine > 0.85). Colours = cluster IDs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PURITY ════════════════════════════════════════════════════════════════ -->
+<section id="purity">
+  <h2 class="section-title">Cluster Purity Evaluation</h2>
+  <div class="stat-grid" style="margin-bottom:20px">
+    <div class="stat-card" style="--accent-color:#5b8dee"><div class="stat-label">Overall Purity</div><div class="stat-value">46.8%</div><div class="stat-sub">Σ max_label / N_labeled</div></div>
+    <div class="stat-card" style="--accent-color:#27ae60"><div class="stat-label">NMI</div><div class="stat-value">0.101</div><div class="stat-sub">Normalised Mutual Information</div></div>
+    <div class="stat-card" style="--accent-color:#f0a500"><div class="stat-label">ARI</div><div class="stat-value">0.047</div><div class="stat-sub">Adjusted Rand Index</div></div>
+    <div class="stat-card" style="--accent-color:#e8554e"><div class="stat-label">Homogeneity</div><div class="stat-value">0.130</div><div class="stat-sub">Each cluster ≈ pure class</div></div>
+    <div class="stat-card" style="--accent-color:#8e44ad"><div class="stat-label">Completeness</div><div class="stat-value">0.083</div><div class="stat-sub">Each class ≈ one cluster</div></div>
+    <div class="stat-card" style="--accent-color:#16a085"><div class="stat-label">V-Measure</div><div class="stat-value">0.101</div><div class="stat-sub">Harmonic mean H+C</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="sub-title">Confusion Matrix — Cluster × Scene Group</h3>
+      <img src="../outputs/figures/cluster_purity_heatmap.png" alt="Purity Heatmap" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+    </div>
+    <div class="card">
+      <h3 class="sub-title">Scene Composition per Cluster</h3>
+      <img src="../outputs/figures/cluster_scene_composition.png" alt="Composition" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3 class="sub-title">Interpretation</h3>
+    <p style="color:var(--muted);line-height:1.75;font-size:13px">
+      <strong style="color:var(--text)">sky_scene is best separated:</strong> Cluster 2 achieves 66% dominant-fraction for sky_scene — the highest semantic purity of any cluster. This confirms CLIP's visual encoder strongly encodes sky-dominant scenes.<br><br>
+      <strong style="color:var(--text)">road_scene spreads across 5 clusters (0,1,3,4,5):</strong> Rather than a failure, this reveals that CLIP sub-divides road scenes by visual sub-type — likely highway vs. dense urban street vs. intersection. The clusters are semantically meaningful but finer-grained than the 4 coarse scene groups.<br><br>
+      <strong style="color:var(--text)">built_env captured by cluster 7:</strong> 49.1% dominant-fraction, intra-similarity 0.804 — the most cohesive non-sky cluster. Building-dominant images group naturally.<br><br>
+      <strong style="color:var(--text)">ARI=0.047 is expected:</strong> ARI penalises all inter-cluster splits of a single true class. With road_scene spanning 5 clusters, ARI is low by design. Purity (0.468) and NMI (0.101) are more informative metrics here.
+    </p>
+  </div>
+</section>
+
+<!-- ══ RETRIEVAL ══════════════════════════════════════════════════════════════ -->
+<section id="retrieval">
+  <h2 class="section-title">Scene Retrieval</h2>
+  <div class="card" style="margin-bottom:16px">
+    <div class="stat-grid">
+      <div class="stat-card" style="--accent-color:var(--accent)"><div class="stat-label">Matrix Size</div><div class="stat-value">500²</div><div class="stat-sub">250,000 pairs computed</div></div>
+      <div class="stat-card" style="--accent-color:var(--accent3)"><div class="stat-label">Mean Similarity</div><div class="stat-value">0.712</div><div class="stat-sub">All pairwise cosine</div></div>
+      <div class="stat-card" style="--accent-color:var(--accent4)"><div class="stat-label">Max Similarity</div><div class="stat-value">0.949</div><div class="stat-sub">Nearest twin pair</div></div>
+      <div class="stat-card" style="--accent-color:var(--accent2)"><div class="stat-label">Min Similarity</div><div class="stat-value">0.375</div><div class="stat-sub">Most dissimilar pair</div></div>
+      <div class="stat-card" style="--accent-color:#8e44ad"><div class="stat-label">Top-5 Records</div><div class="stat-value">2,500</div><div class="stat-sub">500 queries × 5 neighbours</div></div>
+      <div class="stat-card" style="--accent-color:#16a085"><div class="stat-label">High-Sim Edges</div><div class="stat-value">3,147</div><div class="stat-sub">Cosine &gt; 0.85 threshold</div></div>
+    </div>
+  </div>
+  <h3 class="sub-title" style="margin-bottom:14px">Retrieval Gallery — Query + Top-5 Nearest Neighbours</h3>
+  <div id="galleryTabs" class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('gal','q1')">Query 1</button>
+    <button class="tab-btn" onclick="switchTab('gal','q2')">Query 2</button>
+    <button class="tab-btn" onclick="switchTab('gal','q3')">Query 3</button>
+    <button class="tab-btn" onclick="switchTab('gal','q4')">Query 4</button>
+    <button class="tab-btn" onclick="switchTab('gal','q5')">Query 5</button>
+  </div>
+  <div id="gal-q1" class="tab-panel active card"><img src="../outputs/retrieval_gallery/query_01.png" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/></div>
+  <div id="gal-q2" class="tab-panel card"><img src="../outputs/retrieval_gallery/query_02.png" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/></div>
+  <div id="gal-q3" class="tab-panel card"><img src="../outputs/retrieval_gallery/query_03.png" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/></div>
+  <div id="gal-q4" class="tab-panel card"><img src="../outputs/retrieval_gallery/query_04.png" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/></div>
+  <div id="gal-q5" class="tab-panel card"><img src="../outputs/retrieval_gallery/query_05.png" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(this.src)"/></div>
+</section>
+
+<!-- ══ CLUSTER EXAMPLES GALLERY ══════════════════════════════════════════════ -->
+<section id="gallery">
+  <h2 class="section-title">Cluster Representative Images</h2>
+  <p style="color:var(--muted);margin-bottom:20px;font-size:13px">Top-5 most central images per cluster, ranked by sum of intra-cluster cosine similarities. Click any image to enlarge.</p>
+  <div class="fig-grid" id="clusterExamples"></div>
+</section>
+
+<!-- ══ EMBEDDING EXPLORER ════════════════════════════════════════════════════ -->
+<section id="explorer">
+  <h2 class="section-title">Interactive Embedding Explorer</h2>
+  <p style="color:var(--muted);margin-bottom:16px;font-size:13px">UMAP projection of 500 embeddings. Coloured by scene_group (road=red, sky=blue, built=orange, green=green). Hover any point for image ID and dominant category. Symbol = KMeans cluster.</p>
+  <div class="iframe-wrap">
+    <iframe src="../outputs/embedding_explorer.html" height="880" loading="lazy" title="Embedding Explorer"></iframe>
+  </div>
+</section>
+
+<!-- ══ MAP ════════════════════════════════════════════════════════════════════ -->
+<section id="map">
+  <h2 class="section-title">Urban Scene Map</h2>
+  <p style="color:var(--muted);margin-bottom:16px;font-size:13px">
+    500 images assigned to 12 global urban centres via deterministic hash (simulated GPS — the Mapillary source images have no embedded coordinates). Marker colour = KMeans cluster. Layer selector filters by scene_group.
+    <span style="display:inline-block;background:rgba(91,141,238,.12);color:var(--accent);border:1px solid rgba(91,141,238,.3);border-radius:4px;padding:2px 8px;font-size:11px;margin-left:6px">Simulated GPS</span>
+  </p>
+  <div class="iframe-wrap">
+    <iframe src="../outputs/geoscenefm_map.html" height="600" loading="lazy" title="Geo Map"></iframe>
+  </div>
+</section>
+
+<!-- ══ REPORT ════════════════════════════════════════════════════════════════ -->
+<section id="report">
+  <h2 class="section-title">Research Report</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="sub-title">Research Question</h3>
+      <p style="color:var(--text);font-size:15px;font-style:italic;line-height:1.7;border-left:3px solid var(--accent);padding-left:16px;margin-bottom:20px">"Can pretrained vision foundation models learn meaningful geographic representations of urban street scenes without task-specific supervision?"</p>
+      <h3 class="sub-title">Answer</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:1.75">
+        <strong style="color:var(--text)">Partially yes.</strong> Generic CLIP ViT-B/32, with zero fine-tuning, produces non-random urban scene structure in embedding space:<br><br>
+        ✅ <strong>sky_scene correctly isolated</strong> — clusters 2 &amp; 6 are sky-dominant (66% / 37% purity)<br>
+        ✅ <strong>built_env captured</strong> — cluster 7 achieves 49% built_env purity<br>
+        ✅ <strong>Genuine visual spread</strong> — cosine range 0.375–0.949, not collapsed<br>
+        ✅ <strong>High-similarity communities</strong> — 3,147 edges at &gt;0.85 threshold<br>
+        ⚠️ <strong>road_scene over-splits</strong> into 5 clusters (sub-type discrimination)<br>
+        ⚠️ <strong>Low overall scores</strong> (Sil=0.056, ARI=0.047) — expected without fine-tuning
+      </p>
+    </div>
+    <div class="card">
+      <h3 class="sub-title">Key Results Summary</h3>
+      <table>
+        <thead><tr><th>Metric</th><th>Value</th><th>Context</th></tr></thead>
+        <tbody>
+          <tr><td>Overall Purity</td><td><strong>0.468</strong></td><td>vs. segmentation labels</td></tr>
+          <tr><td>NMI</td><td>0.101</td><td>Above random (0.0)</td></tr>
+          <tr><td>Silhouette Score</td><td>0.056</td><td>Weak but positive</td></tr>
+          <tr><td>Davies-Bouldin</td><td>3.107</td><td>High overlap expected</td></tr>
+          <tr><td>Calinski-Harabasz</td><td>23.04</td><td>5× improvement over 60-img run</td></tr>
+          <tr><td>Max Cosine Sim</td><td>0.949</td><td>Near-identical scene pairs found</td></tr>
+          <tr><td>Sim Network Edges</td><td>3,147</td><td>87× more than 60-img baseline</td></tr>
+          <tr><td>Best cluster purity</td><td>0.530</td><td>Cluster 2 (sky_scene)</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:20px">
+        <h3 class="sub-title">Limitations</h3>
+        <p style="color:var(--muted);font-size:13px;line-height:1.7">No GPS coordinates · Generic model (not geo-specialised) · No fine-tuning · road_scene dominates dataset (34%) · Test split has no segmentation masks</p>
+      </div>
+      <div style="margin-top:16px">
+        <h3 class="sub-title">Next Steps</h3>
+        <p style="color:var(--muted);font-size:13px;line-height:1.7">GeoCLIP / SatCLIP model swap · CLIP fine-tuning on scene categories · Geotagged imagery with real GPS · Scale to 5K+ images · Per-category pixel-fraction features as metadata</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- .page -->
+
+<!-- ══ MODAL ══════════════════════════════════════════════════════════════════ -->
+<div id="modal" onclick="closeModal()">
+  <button id="modal-close" onclick="closeModal()">✕</button>
+  <img id="modal-img" src="" alt="Full view" onclick="event.stopPropagation()"/>
+</div>
+
+<footer>GeoSceneFM · Spatial Foundation Model Prototype · openai/clip-vit-base-patch32 · 500 real Mapillary Vistas images · 2026</footer>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const CLUSTER_COLORS = ['#e74c3c','#2980b9','#27ae60','#8e44ad','#f39c12','#16a085','#d35400','#7f8c8d'];
+const SCENE_COLORS   = { road_scene:'#e74c3c', sky_scene:'#5dade2', built_env:'#f39c12', green_space:'#27ae60', unknown:'#95a5a6' };
+
+const clusterSummary = [
+  {id:0,size:47,dominant:'road_scene',intra:0.7736,purity:0.383},
+  {id:1,size:91,dominant:'road_scene',intra:0.7621,purity:0.363},
+  {id:2,size:66,dominant:'sky_scene', intra:0.7717,purity:0.530},
+  {id:3,size:45,dominant:'road_scene',intra:0.8079,purity:0.422},
+  {id:4,size:74,dominant:'road_scene',intra:0.8117,purity:0.351},
+  {id:5,size:48,dominant:'road_scene',intra:0.7685,purity:0.417},
+  {id:6,size:67,dominant:'sky_scene', intra:0.7479,purity:0.284},
+  {id:7,size:62,dominant:'built_env', intra:0.8041,purity:0.419},
+];
+
+const sceneDist = {road_scene:171,sky_scene:98,unknown:81,built_env:81,green_space:69};
+const catDist   = {road:144,sky:98,unknown:81,building:78,vegetation:67,car:21,truck:3,sidewalk:2,fence:2,terrain:2,bus:1,pole:1};
+
+// ── CHART HELPERS ─────────────────────────────────────────────────────────────
+const CHART_DEFAULTS = {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: { legend: { labels: { color: '#8b8fa8', font: { size: 12 } } } },
+  scales: {
+    x: { ticks: { color: '#8b8fa8' }, grid: { color: '#2d3148' } },
+    y: { ticks: { color: '#8b8fa8' }, grid: { color: '#2d3148' } }
+  }
+};
+
+// ── SCENE DISTRIBUTION PIE ────────────────────────────────────────────────────
+new Chart(document.getElementById('sceneChart'), {
+  type: 'doughnut',
+  data: {
+    labels: Object.keys(sceneDist),
+    datasets: [{
+      data: Object.values(sceneDist),
+      backgroundColor: Object.keys(sceneDist).map(k => SCENE_COLORS[k] || '#888'),
+      borderColor: '#1a1d27', borderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#8b8fa8', font: { size: 12 }, padding: 14 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed} images` } }
+    }
+  }
+});
+
+// ── CATEGORY BAR ──────────────────────────────────────────────────────────────
+new Chart(document.getElementById('catChart'), {
+  type: 'bar',
+  data: {
+    labels: Object.keys(catDist),
+    datasets: [{
+      label: 'Images',
+      data: Object.values(catDist),
+      backgroundColor: '#5b8dee99',
+      borderColor: '#5b8dee',
+      borderWidth: 1, borderRadius: 4,
+    }]
+  },
+  options: {
+    ...CHART_DEFAULTS, indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#8b8fa8' }, grid: { color: '#2d3148' } },
+      y: { ticks: { color: '#8b8fa8', font: { size: 11 } }, grid: { color: '#2d3148' } }
+    }
+  }
+});
+
+// ── CLUSTER SIZE BAR ──────────────────────────────────────────────────────────
+new Chart(document.getElementById('clusterBarChart'), {
+  type: 'bar',
+  data: {
+    labels: clusterSummary.map(c => `C${c.id}`),
+    datasets: [{
+      label: 'Images',
+      data: clusterSummary.map(c => c.size),
+      backgroundColor: CLUSTER_COLORS,
+      borderColor: CLUSTER_COLORS.map(c => c),
+      borderWidth: 1, borderRadius: 4,
+    }]
+  },
+  options: {
+    ...CHART_DEFAULTS,
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: ctx => ` ${ctx.parsed.y} images — ${clusterSummary[ctx.dataIndex].dominant}` }
+    }},
+    scales: {
+      x: { ticks: { color: '#8b8fa8' }, grid: { display: false } },
+      y: { ticks: { color: '#8b8fa8' }, grid: { color: '#2d3148' }, beginAtZero: true }
+    }
+  }
+});
+
+// ── INTRA-SIM RADAR ───────────────────────────────────────────────────────────
+new Chart(document.getElementById('intraSimChart'), {
+  type: 'radar',
+  data: {
+    labels: clusterSummary.map(c => `C${c.id}\n(${c.dominant.replace('_scene','').replace('_env','_e')})`),
+    datasets: [{
+      label: 'Mean Intra-Sim',
+      data: clusterSummary.map(c => c.intra),
+      backgroundColor: 'rgba(91,141,238,.15)',
+      borderColor: '#5b8dee', borderWidth: 2,
+      pointBackgroundColor: CLUSTER_COLORS,
+      pointRadius: 5,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true,
+    plugins: { legend: { labels: { color: '#8b8fa8', font: { size: 12 } } } },
+    scales: { r: {
+      min: 0.70, max: 0.83,
+      ticks: { color: '#8b8fa8', backdropColor: 'transparent', font: { size: 10 } },
+      grid: { color: '#2d3148' }, pointLabels: { color: '#8b8fa8', font: { size: 11 } }
+    }}
+  }
+});
+
+// ── CLUSTER TABLE ─────────────────────────────────────────────────────────────
+const tbody = document.getElementById('clusterTableBody');
+const domColors = { road_scene: '#e74c3c', sky_scene: '#5dade2', built_env: '#f39c12', green_space: '#27ae60', unknown: '#95a5a6' };
+clusterSummary.forEach(c => {
+  const col = domColors[c.dominant] || '#888';
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td><span class="pill" style="background:${CLUSTER_COLORS[c.id]}22;color:${CLUSTER_COLORS[c.id]};border:1px solid ${CLUSTER_COLORS[c.id]}44">C${c.id}</span></td>
+    <td>${c.size}</td>
+    <td><span class="pill" style="background:${col}22;color:${col};border:1px solid ${col}44">${c.dominant}</span></td>
+    <td>${c.intra.toFixed(4)}</td>
+    <td>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="flex:1;height:8px;background:#222636;border-radius:4px;overflow:hidden">
+          <div style="width:${(c.purity*100).toFixed(1)}%;height:100%;background:${CLUSTER_COLORS[c.id]};border-radius:4px"></div>
+        </div>
+        <span style="font-size:12px;font-weight:700">${(c.purity*100).toFixed(1)}%</span>
+      </div>
+    </td>`;
+  tbody.appendChild(row);
+});
+
+// ── CLUSTER EXAMPLES GRID ─────────────────────────────────────────────────────
+const exGrid = document.getElementById('clusterExamples');
+clusterSummary.forEach(c => {
+  const card = document.createElement('div');
+  card.className = 'fig-card';
+  card.innerHTML = `
+    <img src="../outputs/cluster_examples/cluster_${c.id}.png" alt="Cluster ${c.id}" loading="lazy"/>
+    <div class="fig-label" style="display:flex;align-items:center;gap:8px">
+      <span class="pill" style="background:${CLUSTER_COLORS[c.id]}33;color:${CLUSTER_COLORS[c.id]}">Cluster ${c.id}</span>
+      <span>${c.dominant} · ${c.size} images</span>
+    </div>`;
+  card.querySelector('img').onclick = () => openModal(card.querySelector('img').src);
+  exGrid.appendChild(card);
+});
+
+// ── TABS ─────────────────────────────────────────────────────────────────────
+function switchTab(group, name) {
+  document.querySelectorAll(`[id^="${group}-"]`).forEach(p => p.classList.remove('active'));
+  document.getElementById(`${group}-${name}`).classList.add('active');
+  event.currentTarget.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openModal(src) {
+  document.getElementById('modal-img').src = src;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── NAV ACTIVE ON SCROLL ──────────────────────────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 90) current = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>

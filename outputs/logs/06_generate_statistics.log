@@ -1,0 +1,31 @@
+2026-07-02 01:28:03,058  INFO  ============================================================
+2026-07-02 01:28:03,058  INFO  STAGE 6 - Statistics Aggregation
+2026-07-02 01:28:03,058  INFO  ============================================================
+2026-07-02 01:28:03,338  INFO  Similarity stats computed from 500x500 matrix.
+2026-07-02 01:28:03,356  INFO  Clustering metrics merged.
+2026-07-02 01:28:03,356  INFO  project_statistics.json saved: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\project_statistics.json
+2026-07-02 01:28:03,364  INFO  project_statistics.csv saved: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\project_statistics.csv
+2026-07-02 01:28:03,365  INFO    total_images: 500
+2026-07-02 01:28:03,366  INFO    embedding_dimension: 512
+2026-07-02 01:28:03,366  INFO    number_of_clusters: 8
+2026-07-02 01:28:03,366  INFO    split_train_count: 358
+2026-07-02 01:28:03,367  INFO    split_test_count: 81
+2026-07-02 01:28:03,367  INFO    split_val_count: 61
+2026-07-02 01:28:03,368  INFO    mean_cosine_similarity: 0.711731
+2026-07-02 01:28:03,369  INFO    median_cosine_similarity: 0.713789
+2026-07-02 01:28:03,369  INFO    min_cosine_similarity: 0.374572
+2026-07-02 01:28:03,369  INFO    max_cosine_similarity: 0.949088
+2026-07-02 01:28:03,370  INFO    silhouette_score: 0.056439
+2026-07-02 01:28:03,370  INFO    davies_bouldin_index: 3.10705
+2026-07-02 01:28:03,370  INFO    calinski_harabasz_score: 23.043275
+2026-07-02 01:28:03,371  INFO    cluster_0_size: 47.0
+2026-07-02 01:28:03,371  INFO    cluster_1_size: 91.0
+2026-07-02 01:28:03,371  INFO    cluster_2_size: 66.0
+2026-07-02 01:28:03,371  INFO    cluster_3_size: 45.0
+2026-07-02 01:28:03,371  INFO    cluster_4_size: 74.0
+2026-07-02 01:28:03,372  INFO    cluster_5_size: 48.0
+2026-07-02 01:28:03,372  INFO    cluster_6_size: 67.0
+2026-07-02 01:28:03,372  INFO    cluster_7_size: 62.0
+2026-07-02 01:28:03,375  INFO  ============================================================
+2026-07-02 01:28:03,384  INFO  STAGE 6 COMPLETE
+2026-07-02 01:28:03,385  INFO  ============================================================

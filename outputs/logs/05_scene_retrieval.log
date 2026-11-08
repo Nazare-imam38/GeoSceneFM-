@@ -1,0 +1,18 @@
+2026-07-02 01:27:35,884  INFO  ============================================================
+2026-07-02 01:27:35,884  INFO  STAGE 5 - Scene Retrieval
+2026-07-02 01:27:35,885  INFO  ============================================================
+2026-07-02 01:27:36,048  INFO  Computing 500x500 cosine similarity matrix...
+2026-07-02 01:27:36,055  INFO  Similarity matrix computed. Shape: (500, 500)
+2026-07-02 01:27:36,450  INFO  similarity_matrix.csv saved: C:\Projects\GeoScence\GeoSceneFM\outputs\similarity\similarity_matrix.csv
+2026-07-02 01:27:36,451  INFO  Computing top-5 nearest neighbours per image...
+2026-07-02 01:27:39,705  INFO  top5_similar_scenes.csv saved: C:\Projects\GeoScence\GeoSceneFM\outputs\similarity\top5_similar_scenes.csv  (2500 rows)
+2026-07-02 01:27:39,709  INFO  Pairwise similarity  mean=0.7117  median=0.7138  min=0.3746  max=0.9491
+2026-07-02 01:27:40,703  INFO  Saved: C:\Projects\GeoScence\GeoSceneFM\outputs\figures\similarity_heatmap.png
+2026-07-02 01:27:42,541  INFO  Saved gallery: C:\Projects\GeoScence\GeoSceneFM\outputs\retrieval_gallery\query_01.png
+2026-07-02 01:27:44,620  INFO  Saved gallery: C:\Projects\GeoScence\GeoSceneFM\outputs\retrieval_gallery\query_02.png
+2026-07-02 01:27:46,494  INFO  Saved gallery: C:\Projects\GeoScence\GeoSceneFM\outputs\retrieval_gallery\query_03.png
+2026-07-02 01:27:48,301  INFO  Saved gallery: C:\Projects\GeoScence\GeoSceneFM\outputs\retrieval_gallery\query_04.png
+2026-07-02 01:27:50,169  INFO  Saved gallery: C:\Projects\GeoScence\GeoSceneFM\outputs\retrieval_gallery\query_05.png
+2026-07-02 01:27:50,169  INFO  ============================================================
+2026-07-02 01:27:50,169  INFO  STAGE 5 COMPLETE
+2026-07-02 01:27:50,170  INFO  ============================================================

@@ -1,0 +1,46 @@
+2026-07-02 01:15:40,831  INFO  ============================================================
+2026-07-02 01:15:40,832  INFO  STAGE 2 - CLIP Embedding Extraction
+2026-07-02 01:15:40,832  INFO  ============================================================
+2026-07-02 01:15:40,867  INFO  Loaded 500 rows from metadata.csv
+2026-07-02 01:15:40,911  INFO  All filepaths validated - every image file exists on disk.
+2026-07-02 01:15:40,911  INFO  Device: cpu
+2026-07-02 01:15:40,912  INFO  Loading model: openai/clip-vit-base-patch32
+2026-07-02 01:15:42,592  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-07-02 01:15:42,594  WARNING  Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-07-02 01:15:42,669  INFO  HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai/clip-vit-base-patch32/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268/config.json "HTTP/1.1 200 OK"
+2026-07-02 01:15:42,977  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:43,279  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:43,633  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-07-02 01:15:43,962  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:44,514  INFO  HTTP Request: GET https://huggingface.co/api/models/openai/clip-vit-base-patch32 "HTTP/1.1 200 OK"
+2026-07-02 01:15:45,152  INFO  HTTP Request: GET https://huggingface.co/api/models/openai/clip-vit-base-patch32/commits/main "HTTP/1.1 200 OK"
+2026-07-02 01:15:45,793  INFO  HTTP Request: GET https://huggingface.co/api/models/openai/clip-vit-base-patch32/discussions?p=0 "HTTP/1.1 200 OK"
+2026-07-02 01:15:46,125  INFO  HTTP Request: GET https://huggingface.co/api/models/openai/clip-vit-base-patch32/commits/refs%2Fpr%2F66 "HTTP/1.1 200 OK"
+2026-07-02 01:15:46,441  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/refs%2Fpr%2F66/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:46,501  INFO  HTTP Request: GET https://huggingface.co/api/models/openai/clip-vit-base-patch32/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:46,764  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/refs%2Fpr%2F66/model.safetensors "HTTP/1.1 302 Found"
+2026-07-02 01:15:46,776  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:47,081  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:47,392  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:47,713  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:48,032  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:48,360  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-07-02 01:15:48,447  INFO  HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai/clip-vit-base-patch32/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-07-02 01:15:48,753  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:49,320  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-07-02 01:15:49,414  INFO  HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai/clip-vit-base-patch32/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-07-02 01:15:49,713  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-07-02 01:15:49,766  INFO  HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai/clip-vit-base-patch32/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268/config.json "HTTP/1.1 200 OK"
+2026-07-02 01:15:50,113  INFO  HTTP Request: HEAD https://huggingface.co/openai/clip-vit-base-patch32/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-07-02 01:15:50,199  INFO  HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/openai/clip-vit-base-patch32/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-07-02 01:15:50,513  INFO  HTTP Request: GET https://huggingface.co/api/models/openai/clip-vit-base-patch32/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-07-02 01:15:50,930  INFO  HTTP Request: GET https://huggingface.co/api/models/openai/clip-vit-base-patch32/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-07-02 01:15:51,707  INFO  Model loaded.
+2026-07-02 01:18:22,122  INFO  Embeddings extracted: 500
+2026-07-02 01:18:22,126  INFO  Failed:               0
+2026-07-02 01:18:22,874  INFO  scene_embeddings.csv saved: C:\Projects\GeoScence\GeoSceneFM\scene_embeddings\scene_embeddings.csv  (500 rows)
+2026-07-02 01:18:22,904  INFO  Synthetic image check: PASSED - no synthetic references in embeddings.
+2026-07-02 01:18:22,907  INFO  embedding_metadata.json saved: C:\Projects\GeoScence\GeoSceneFM\outputs\statistics\embedding_metadata.json
+2026-07-02 01:18:22,907  INFO  ============================================================
+2026-07-02 01:18:22,907  INFO  STAGE 2 COMPLETE - 500 embeddings, dim=512
+2026-07-02 01:18:22,907  INFO  ============================================================
